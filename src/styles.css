@@ -64,6 +64,15 @@ h6 {
 }
 
 /* Memory Card */
+@font-face {
+    font-family: 'Formula1 Display';
+    src: url('./assets/Formula1-Display-Regular.woff') format('woff2'),
+        url('./assets/Formula1-Display-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
   --bg-primary: #0f172a;
   --bg-surface: #1e293b;
@@ -71,6 +80,7 @@ h6 {
   --border: #475569;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
+  --max-width: 800px;
 }
 
 body {
@@ -79,25 +89,69 @@ body {
   font-family: sans-serif;
 }
 
-.App {
+button {
+  all: unset;
+}
+
+.memory-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Formula1 Display";
+}
+
+/* Navbar */
+
+.navbar {
   display: flex;
   justify-content: center;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.25rem;
+}
+
+.scoreboard {
+  display: flex;
+  gap: 3rem;
+}
+
+.scoreboard__current-score,
+.scoreboard__high-score {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.driver-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  max-width: var(--max-width);
 }
 
 .driver-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--text-primary);
   border-radius: 0.5rem;
   text-align: center;
 }
 
 .driver-card__img {
-  padding: 0.5rem;
-  padding-bottom: 0;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding: 0.5rem 0.5rem 0;
 }
 
 .driver-card__name {
-  border-top: 1px solid var(--text-primary);
+  background-color: var(--bg-elevated);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   padding: 0.5rem;
 }
