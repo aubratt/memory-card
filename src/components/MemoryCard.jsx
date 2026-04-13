@@ -1,10 +1,20 @@
 import { useEffect, useRef, useState } from "react";
+
 import Game from "./Game";
-import Navbar from "./Navbar";
-import Scoreboard from "./Scoreboard";
+import GameLog from "./GameLog";
 import MenuMain from "./MenuMain";
 import MenuPlayAgain from "./MenuPlayAgain";
-import GameLog from "./GameLog";
+import Navbar from "./Navbar";
+import Scoreboard from "./Scoreboard";
+
+import Car from "../assets/icons/car.png";
+import Fire from "../assets/icons/fire.svg";
+import Star from "../assets/icons/star.svg";
+import SadFace from "../assets/icons/sad-face.svg";
+import Snail from "../assets/icons/snail.png";
+import ThumbsUp from "../assets/icons/thumbs-up.svg";
+import Trophy from "../assets/icons/trophy.svg";
+import Turtle from "../assets/icons/turtle.png";
 
 export default function MemoryCard() {
   const [gameState, setGameState] = useState({
@@ -79,9 +89,49 @@ export default function MemoryCard() {
     });
   }
 
+  function getGameSpeed(ratio) {
+    if (ratio <= 2000)
+      return { icon: tagIcons.fire, text: "BLAZING", bgColor: tagColors.great };
+    if (ratio > 2000 && ratio <= 4000)
+      return { icon: tagIcons.car, text: "Fast", bgColor: tagColors.good };
+    if (ratio > 4000 && ratio <= 6000)
+      return {
+        icon: tagIcons.thumbsUp,
+        text: "Steady",
+        bgColor: tagColors.average,
+      };
+    if (ratio > 6000 && ratio <= 8000)
+      return { icon: tagIcons.turtle, text: "Slow", bgColor: tagColors.bad };
+    if (ratio > 8000)
+      return {
+        icon: tagIcons.snail,
+        text: "Sluggish",
+        bgColor: tagColors.awful,
+      };
+  }
+
+  const tagIcons = {
+    car: Car,
+    fire: Fire,
+    star: Star,
+    sadFace: SadFace,
+    snail: Snail,
+    thumbsUp: ThumbsUp,
+    trophy: Trophy,
+    turtle: Turtle,
+  };
+
+  const tagColors = {
+    great: "#0198FF",
+    good: "#5AD123",
+    average: "#ECE10A",
+    bad: "#FF9100",
+    awful: "#FF5958",
+  };
+
   return (
     <div className="memory-card">
-      <Navbar />
+      <Navbar setGameState={setGameState} />
       {gameState.state === "menu" && (
         <MenuMain
           handleStartClick={handleStartClick}
@@ -123,9 +173,20 @@ export default function MemoryCard() {
           elapsedTime={elapsedTime}
           formatTime={formatTime}
           highScore={highScore}
+          tagIcons={tagIcons}
+          tagColors={tagColors}
+          getGameSpeed={getGameSpeed}
         />
       )}
-      {gameState.state === "gamelog" && <GameLog gamelog={gameLog} />}
+      {gameState.state === "gamelog" && (
+        <GameLog
+          gameLog={gameLog}
+          tagIcons={tagIcons}
+          tagColors={tagColors}
+          getGameSpeed={getGameSpeed}
+          formatTime={formatTime}
+        />
+      )}
     </div>
   );
 }

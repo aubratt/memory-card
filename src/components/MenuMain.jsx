@@ -10,7 +10,6 @@ export default function MenuMain({ handleStartClick, handleGameLogClick }) {
         Game Log
       </button>
       <button className="menu__button">Settings</button>
-      {/* Settings: Show/Hide Timer, Colors (color blindness) */}
     </div>
   );
 }

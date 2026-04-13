@@ -19,7 +19,6 @@ export default function Card({
     stopTimer();
     setGameState({ state: "gameover", win: win });
     setHighScore((prev) => {
-      console.log(elapsedTime);
       const score = win ? currentScore + 1 : currentScore;
       if (score >= prev.score && (elapsedTime < prev.time || prev.time === 0)) {
         return { score: score, time: elapsedTime, new: true };
@@ -27,16 +26,18 @@ export default function Card({
         return { score: score, time: elapsedTime, new: true };
       } else return prev;
     });
-    setClickedDrivers([]);
+    setClickedDrivers(() => {
+      return [];
+    });
     setGameLog((prev) => {
       return [
-        ...prev,
         {
           win: win,
-          score: currentScore,
+          score: win ? currentScore + 1 : currentScore,
           time: elapsedTime,
           ratio: elapsedTime / currentScore,
         },
+        ...prev,
       ];
     });
   }
@@ -45,15 +46,19 @@ export default function Card({
     const validClick = !clickedDrivers.includes(firstName);
 
     if (validClick) {
-      setClickedDrivers((prev) => {
-        if (prev.length === 21) endGame(true);
-        return [...prev, firstName];
-      });
       setCurrentScore((prev) => {
         return prev + 1;
       });
-      shuffleList(driverList);
-    } else endGame(false);
+      if (currentScore === 21) endGame(true);
+      else {
+        shuffleList(driverList);
+        setClickedDrivers((prev) => {
+          return [...prev, firstName];
+        });
+      }
+    } else {
+      endGame(false);
+    }
   }
 
   return (
