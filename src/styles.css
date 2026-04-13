@@ -65,28 +65,31 @@ h6 {
 
 /* Memory Card */
 @font-face {
-    font-family: 'Formula1 Display';
-    src: url('./assets/Formula1-Display-Regular.woff') format('woff2'),
-        url('./assets/Formula1-Display-Regular.woff2') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Formula1 Display";
+  src:
+    url("./assets/Formula1-Display-Regular.woff") format("woff2"),
+    url("./assets/Formula1-Display-Regular.woff2") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 :root {
-  --bg-primary: #0f172a;
-  --bg-surface: #1e293b;
-  --bg-elevated: #334155;
-  --border: #475569;
+  --bg-primary: #0f0f0f;
+  --bg-surface: #212121;
+  --bg-elevated: #323232;
+  --border: #2a2a2a;
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
+  --accent: #e10600;
+  --win: #ffd700;
   --max-width: 800px;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: sans-serif;
+  font-family: "Formula1 Display";
 }
 
 button {
@@ -98,11 +101,9 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  font-family: "Formula1 Display";
 }
 
 /* Navbar */
-
 .navbar {
   display: flex;
   justify-content: center;
@@ -116,18 +117,149 @@ h1 {
   font-size: 1.25rem;
 }
 
-.scoreboard {
-  display: flex;
-  gap: 3rem;
+h2 {
+  font-size: 1.125rem;
 }
 
-.scoreboard__current-score,
-.scoreboard__high-score {
+/* Menu */
+.menu {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu__button-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--bg-surface);
+  border-radius: 0.5rem;
+  width: 180px;
+  padding: 1rem;
+}
+
+.menu__button {
+  background-color: var(--bg-elevated);
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 128px;
+  padding: 0.5rem 0.75rem;
+}
+
+.menu__start-button {
+  background-color: var(--accent);
+}
+
+.menu__button-list button:hover {
+  opacity: 0.8;
+}
+
+/* Menu Play Again */
+.menu__result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__recap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background-color: var(--bg-surface);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem 1rem;
+}
+
+.menu__recap-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.menu__recap-score,
+.menu__recap-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu__recap-score-heading {
+  border-bottom: 1px solid var(--text-primary);
+}
+
+.menu__recap-score-heading,
+.menu__recap-time-heading {
+  padding-bottom: 0.25rem;
+}
+
+.menu__recap-score-value,
+.menu__recap-time-value {
+  padding-top: 0.25rem;
+}
+
+.menu__recap-time-value {
+  border-top: 1px solid var(--text-primary);
+}
+
+.menu__recap-tags {
+  display: flex;
+  justify-content: center;
   gap: 0.5rem;
 }
 
-.driver-cards {
+.menu__recap-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.win {
+  background-color: var(--win);
+  color: var(--bg-primary);
+}
+
+.dnf {
+  background-color: var(--text-secondary);
+  color: var(--bg-surface);
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: flex;
+  gap: 1rem;
+}
+
+.scoreboard__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border-radius: 0.5rem;
+  width: 160px;
+  padding: 0.5rem 1rem;
+}
+
+.scoreboard__section-title {
+  border-bottom: 1px solid var(--text-primary);
+  padding-bottom: 0.25rem;
+}
+
+.scoreboard__section-value {
+  display: flex;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 1rem;
+  padding-top: 0.25rem;
+}
+
+/* Driver Cards */
+.memory-card__game {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -136,22 +268,28 @@ h1 {
   max-width: var(--max-width);
 }
 
-.driver-card {
+/* Driver Card */
+.memory-card__card {
   display: flex;
   flex-direction: column;
   border-radius: 0.5rem;
   text-align: center;
 }
 
-.driver-card__img {
+.memory-card__card-img {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   padding: 0.5rem 0.5rem 0;
 }
 
-.driver-card__name {
+.memory-card__card-name {
   background-color: var(--bg-elevated);
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   padding: 0.5rem;
+}
+
+/* Hidden */
+.hidden {
+  display: none;
 }

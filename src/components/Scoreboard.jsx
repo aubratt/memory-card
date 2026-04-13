@@ -1,25 +1,19 @@
-export default function Scoreboard({ currentScore, highScore }) {
-  function getScoreRatio(score) {
-    return (score / 22).toFixed(2);
-  }
+import ScoreboardSection from "./ScoreboardSection";
 
-  const currentScoreRatio = getScoreRatio(currentScore);
-  const highScoreRatio = getScoreRatio(highScore);
-
+export default function Scoreboard({
+  currentScore,
+  elapsedTime,
+  highScore,
+  formatTime,
+}) {
   return (
     <div className="scoreboard">
-      <div className="scoreboard__current-score">
-        <p>Current Score: </p>
-        <p>
-          {currentScore} ({currentScoreRatio})
-        </p>
-      </div>
-      <div className="scoreboard__high-score">
-        <p>High Score: </p>
-        <p>
-          {highScore} ({highScoreRatio})
-        </p>
-      </div>
+      <ScoreboardSection title="Time Elapsed" value={formatTime(elapsedTime)} />
+      <ScoreboardSection title="Current Score" value={currentScore} />
+      <ScoreboardSection
+        title="High Score"
+        value={`${highScore.score} (${formatTime(highScore.time)})`}
+      />
     </div>
   );
 }
