@@ -300,11 +300,14 @@ h2 {
   align-items: center;
 }
 
-.game-log h2 {
+.game-log__heading {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-bottom: 0.5rem;
 }
 
-.game-log__header,
+.game-log__column-headings,
 .game-log__list-item {
   display: grid;
   grid-template-columns: repeat(4, 150px);
@@ -325,6 +328,32 @@ h2 {
 
 .game-log__list-item-empty {
   grid-area: 1 / 1 / 2 / 5;
+}
+
+/* Instructions */
+.instructions__heading {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.instructions__content {
+  background-color: var(--bg-surface);
+  border-radius: 0.5rem;
+  font-family: monospace;
+  font-size: 1rem;
+  width: 600px;
+  padding: 1rem 0 0.5rem;
+}
+
+.instructions__content h3 {
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructions__content li {
+  margin-bottom: 0.5rem;
 }
 
 /* Hidden */

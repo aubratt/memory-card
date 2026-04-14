@@ -1,18 +1,32 @@
 import Tag from "./Tag";
 
+import BackArrow from "../assets/icons/back-arrow.svg";
+
 export default function GameLog({
   gameLog,
   tagIcons,
   tagColors,
   getGameSpeed,
   formatTime,
+  gameState,
+  setGameState,
 }) {
-  console.log(gameLog);
+  function handleClick() {
+    setGameState((prev) => {
+      return { ...prev, state: gameState.prevState };
+    });
+  }
 
   return (
     <div className="game-log">
-      <h2>Game Log</h2>
-      <div className="game-log__header">
+      <div className="game-log__heading">
+        <button onClick={handleClick} className="game-log__heading-arrow">
+          <img src={BackArrow} alt="Back arrow" />
+        </button>
+        <h2>Game Log</h2>
+        <div></div>
+      </div>
+      <div className="game-log__column-headings">
         <p>Result</p>
         <p>Score</p>
         <p>Time</p>

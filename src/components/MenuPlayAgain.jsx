@@ -3,6 +3,7 @@ import Tag from "./Tag";
 export default function MenuPlayAgain({
   handleStartClick,
   handleGameLogClick,
+  handleInstructionsClick,
   gameState,
   currentScore,
   elapsedTime,
@@ -70,7 +71,7 @@ export default function MenuPlayAgain({
         <button onClick={handleGameLogClick} className="menu__button">
           Game Log
         </button>
-        <button className="menu__button">Settings</button>
+        <button onClick={handleInstructionsClick} className="menu__button">Instructions</button>
       </div>
     </div>
   );

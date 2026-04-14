@@ -1,4 +1,8 @@
-export default function MenuMain({ handleStartClick, handleGameLogClick }) {
+export default function MenuMain({
+  handleStartClick,
+  handleGameLogClick,
+  handleInstructionsClick,
+}) {
   return (
     <div className="menu__button-list">
       <button
@@ -9,7 +13,9 @@ export default function MenuMain({ handleStartClick, handleGameLogClick }) {
       <button onClick={handleGameLogClick} className="menu__button">
         Game Log
       </button>
-      <button className="menu__button">Settings</button>
+      <button onClick={handleInstructionsClick} className="menu__button">
+        Instructions
+      </button>
     </div>
   );
 }

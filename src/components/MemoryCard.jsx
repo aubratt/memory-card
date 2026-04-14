@@ -12,14 +12,16 @@ import Fire from "../assets/icons/fire.svg";
 import Star from "../assets/icons/star.svg";
 import SadFace from "../assets/icons/sad-face.svg";
 import Snail from "../assets/icons/snail.png";
-import ThumbsUp from "../assets/icons/thumbs-up.svg";
+import Ok from "../assets/icons/ok.svg";
 import Trophy from "../assets/icons/trophy.svg";
 import Turtle from "../assets/icons/turtle.png";
+import Instructions from "./Instructions";
 
 export default function MemoryCard() {
   const [gameState, setGameState] = useState({
     state: "menu",
     win: false,
+    prevState: null,
   });
   const [driverList, setDriverList] = useState([]);
   const [clickedDrivers, setClickedDrivers] = useState([]);
@@ -84,25 +86,33 @@ export default function MemoryCard() {
   }
 
   function handleGameLogClick() {
+    const prevState = gameState.state;
     setGameState((prev) => {
-      return { ...prev, state: "gamelog" };
+      return { ...prev, state: "gamelog", prevState: prevState };
+    });
+  }
+
+  function handleInstructionsClick() {
+    const prevState = gameState.state;
+    setGameState((prev) => {
+      return { ...prev, state: "instructions", prevState: prevState };
     });
   }
 
   function getGameSpeed(ratio) {
-    if (ratio <= 2000)
+    if (ratio <= 2045.45) // 00:45:00 or faster
       return { icon: tagIcons.fire, text: "BLAZING", bgColor: tagColors.great };
-    if (ratio > 2000 && ratio <= 4000)
+    if (ratio > 2045.45 && ratio <= 3409.09) // 00:45:00 - 01:15:00
       return { icon: tagIcons.car, text: "Fast", bgColor: tagColors.good };
-    if (ratio > 4000 && ratio <= 6000)
+    if (ratio > 3409.09 && ratio <= 4772.73) // 01:15:00 - 01:45:00
       return {
-        icon: tagIcons.thumbsUp,
+        icon: tagIcons.ok,
         text: "Steady",
         bgColor: tagColors.average,
       };
-    if (ratio > 6000 && ratio <= 8000)
+    if (ratio > 4772.73 && ratio <= 6136.36) // 01:45:00 - 02:15:00
       return { icon: tagIcons.turtle, text: "Slow", bgColor: tagColors.bad };
-    if (ratio > 8000)
+    if (ratio > 6136.36)
       return {
         icon: tagIcons.snail,
         text: "Sluggish",
@@ -116,7 +126,7 @@ export default function MemoryCard() {
     star: Star,
     sadFace: SadFace,
     snail: Snail,
-    thumbsUp: ThumbsUp,
+    ok: Ok,
     trophy: Trophy,
     turtle: Turtle,
   };
@@ -131,11 +141,15 @@ export default function MemoryCard() {
 
   return (
     <div className="memory-card">
-      <Navbar setGameState={setGameState} />
+      <Navbar
+        setGameState={setGameState}
+        setClickedDrivers={setClickedDrivers}
+      />
       {gameState.state === "menu" && (
         <MenuMain
           handleStartClick={handleStartClick}
           handleGameLogClick={handleGameLogClick}
+          handleInstructionsClick={handleInstructionsClick}
         />
       )}
       {(gameState.state === "playing" || gameState.state === "gameover") && (
@@ -168,6 +182,7 @@ export default function MemoryCard() {
         <MenuPlayAgain
           handleStartClick={handleStartClick}
           handleGameLogClick={handleGameLogClick}
+          handleInstructionsClick={handleInstructionsClick}
           gameState={gameState}
           currentScore={currentScore}
           elapsedTime={elapsedTime}
@@ -185,7 +200,12 @@ export default function MemoryCard() {
           tagColors={tagColors}
           getGameSpeed={getGameSpeed}
           formatTime={formatTime}
+          gameState={gameState}
+          setGameState={setGameState}
         />
+      )}
+      {gameState.state === "instructions" && (
+        <Instructions gameState={gameState} setGameState={setGameState} />
       )}
     </div>
   );

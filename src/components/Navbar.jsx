@@ -1,7 +1,10 @@
-export default function Navbar({ setGameState }) {
+export default function Navbar({ setGameState, setClickedDrivers }) {
   function handleClick() {
     setGameState((prev) => {
       return { ...prev, state: "menu" };
+    });
+    setClickedDrivers(() => {
+      return [];
     });
   }
 
