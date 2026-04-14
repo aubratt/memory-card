@@ -16,10 +16,11 @@ export default function Card({
   setGameLog,
 }) {
   function endGame(win) {
+    const score = win ? currentScore + 1 : currentScore;
+
     stopTimer();
     setGameState({ state: "gameover", win: win });
     setHighScore((prev) => {
-      const score = win ? currentScore + 1 : currentScore;
       if (score >= prev.score && (elapsedTime < prev.time || prev.time === 0)) {
         return { score: score, time: elapsedTime, new: true };
       } else if (score > prev.score) {
@@ -33,9 +34,9 @@ export default function Card({
       return [
         {
           win: win,
-          score: win ? currentScore + 1 : currentScore,
+          score: score,
           time: elapsedTime,
-          ratio: elapsedTime / currentScore,
+          ratio: elapsedTime / score,
         },
         ...prev,
       ];
