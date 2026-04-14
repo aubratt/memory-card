@@ -28,12 +28,12 @@ export default function MemoryCard() {
   const [clickedDrivers, setClickedDrivers] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [highScore, setHighScore] = useLocalStorage({
+  const [highScore, setHighScore] = useLocalStorage("highScore", {
     score: 0,
     time: 0,
     new: false,
   });
-  const [gameLog, setGameLog] = useLocalStorage([]);
+  const [gameLog, setGameLog] = useLocalStorage("gameLog", []);
 
   useEffect(() => {
     fetch("https://api.openf1.org/v1/drivers?&session_key=latest")
