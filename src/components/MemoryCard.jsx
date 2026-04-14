@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import Game from "./Game";
 import GameLog from "./GameLog";
@@ -27,13 +28,12 @@ export default function MemoryCard() {
   const [clickedDrivers, setClickedDrivers] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const timerRef = useRef(null);
-  const [highScore, setHighScore] = useState({
+  const [highScore, setHighScore] = useLocalStorage({
     score: 0,
     time: 0,
     new: false,
   });
-  const [gameLog, setGameLog] = useState([]);
+  const [gameLog, setGameLog] = useLocalStorage([]);
 
   useEffect(() => {
     fetch("https://api.openf1.org/v1/drivers?&session_key=latest")
@@ -50,6 +50,8 @@ export default function MemoryCard() {
     }
     return list;
   }
+
+  const timerRef = useRef(null);
 
   function startTimer() {
     const startTime = Date.now();
@@ -99,27 +101,6 @@ export default function MemoryCard() {
     });
   }
 
-  function getGameSpeed(ratio) {
-    if (ratio <= 2045.45) // 00:45:00 or faster
-      return { icon: tagIcons.fire, text: "BLAZING", bgColor: tagColors.great };
-    if (ratio > 2045.45 && ratio <= 3409.09) // 00:45:00 - 01:15:00
-      return { icon: tagIcons.car, text: "Fast", bgColor: tagColors.good };
-    if (ratio > 3409.09 && ratio <= 4772.73) // 01:15:00 - 01:45:00
-      return {
-        icon: tagIcons.ok,
-        text: "Steady",
-        bgColor: tagColors.average,
-      };
-    if (ratio > 4772.73 && ratio <= 6136.36) // 01:45:00 - 02:15:00
-      return { icon: tagIcons.turtle, text: "Slow", bgColor: tagColors.bad };
-    if (ratio > 6136.36)
-      return {
-        icon: tagIcons.snail,
-        text: "Sluggish",
-        bgColor: tagColors.awful,
-      };
-  }
-
   const tagIcons = {
     car: Car,
     fire: Fire,
@@ -138,6 +119,31 @@ export default function MemoryCard() {
     bad: "#FF9100",
     awful: "#FF5958",
   };
+
+  function getGameSpeed(ratio) {
+    if (ratio <= 2045.45)
+      // 00:45:00 or faster
+      return { icon: tagIcons.fire, text: "BLAZING", bgColor: tagColors.great };
+    if (ratio > 2045.45 && ratio <= 3409.09)
+      // 00:45:00 - 01:15:00
+      return { icon: tagIcons.car, text: "Fast", bgColor: tagColors.good };
+    if (ratio > 3409.09 && ratio <= 4772.73)
+      // 01:15:00 - 01:45:00
+      return {
+        icon: tagIcons.ok,
+        text: "Steady",
+        bgColor: tagColors.average,
+      };
+    if (ratio > 4772.73 && ratio <= 6136.36)
+      // 01:45:00 - 02:15:00
+      return { icon: tagIcons.turtle, text: "Slow", bgColor: tagColors.bad };
+    if (ratio > 6136.36)
+      return {
+        icon: tagIcons.snail,
+        text: "Sluggish",
+        bgColor: tagColors.awful,
+      };
+  }
 
   return (
     <div className="memory-card">
