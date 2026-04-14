@@ -124,21 +124,21 @@ export default function MemoryCard() {
     if (ratio <= 2045.45)
       // 00:45:00 or faster
       return { icon: tagIcons.fire, text: "BLAZING", bgColor: tagColors.great };
-    if (ratio > 2045.45 && ratio <= 2954.55)
-      // 00:45:00 - 01:05:00
+    if (ratio > 2045.45 && ratio <= 3409.09)
+      // 00:45:00 - 01:15:00
       return { icon: tagIcons.car, text: "Fast", bgColor: tagColors.good };
-    if (ratio > 2954.55 && ratio <= 4090.91)
-      // 01:05:00 - 01:30:00
+    if (ratio > 3409.09 && ratio <= 4772.73)
+      // 01:15:00 - 01:45:00
       return {
         icon: tagIcons.ok,
         text: "Steady",
         bgColor: tagColors.average,
       };
-    if (ratio > 4090.91 && ratio <= 5000)
-      // 01:30:00 - 01:50:00
+    if (ratio > 4772.73 && ratio <= 6136.36)
+      // 01:45:00 - 02:15:00
       return { icon: tagIcons.turtle, text: "Slow", bgColor: tagColors.bad };
-    if (ratio > 5000)
-      // 01:50:00 or slower
+    if (ratio > 6136.36)
+      // 02:15:00 or slower
       return {
         icon: tagIcons.snail,
         text: "Sluggish",
